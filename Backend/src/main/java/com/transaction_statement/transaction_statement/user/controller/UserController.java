@@ -6,6 +6,8 @@ import com.transaction_statement.transaction_statement.user.repository.UserRepos
 import com.transaction_statement.transaction_statement.user.domain.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -24,7 +26,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserResponseDto getUser(@PathVariable Long id){
-        User user = userRepository.findById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("해당 사용자를 찾을 수 없습니다."));
 
         return UserResponseDto.from(user);
     }

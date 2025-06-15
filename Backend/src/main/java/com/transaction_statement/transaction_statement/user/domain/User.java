@@ -1,12 +1,8 @@
 package com.transaction_statement.transaction_statement.user.domain;
 
 import com.transaction_statement.transaction_statement.user.dto.UserRequestDto;
-import com.transaction_statement.transaction_statement.user.dto.UserResponseDto;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 @Entity(name="user")
 @Getter @Setter
@@ -16,8 +12,9 @@ import org.springframework.data.annotation.Id;
 public class User {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
     private String password;
     private String companyName;

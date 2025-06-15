@@ -1,11 +1,13 @@
 package com.transaction_statement.transaction_statement.user.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 @Embeddable
 @Getter
 public class Email {
+    @Column(name = "email")
     private String value;
 
     public Email(String value) {

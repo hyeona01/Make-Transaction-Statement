@@ -1,5 +1,6 @@
 package com.transaction_statement.transaction_statement.user.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
@@ -7,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class BusinessNumber {
 
+    @Column(name = "business_number")
     private String value;
 
     public BusinessNumber(String value) {
