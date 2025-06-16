@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { signup } from "../../apis/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignupInput = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +12,46 @@ const SignupInput = () => {
   const [businessNumber, setBusinessNumber] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleButtonClick = () => {};
+  const navigate = useNavigate();
+
+  const validateSignup = () => {
+    if (
+      !email ||
+      !password ||
+      !name ||
+      !companyName ||
+      !businessStatus ||
+      !businessCategory ||
+      !businessNumber ||
+      !address
+    ) {
+      alert("모든 항목을 입력해주세요!");
+      return false;
+    }
+    return true;
+  };
+
+  const handleButtonClick = async () => {
+    if (!validateSignup()) return;
+
+    try {
+      const response = await signup({
+        name,
+        password,
+        companyName,
+        businessStatus,
+        businessCategory,
+        email,
+        businessNumber,
+        address,
+      });
+      console.log("회원가입 성공:", response);
+      alert("환영합니다!");
+      navigate("/signin");
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col space-y-10">

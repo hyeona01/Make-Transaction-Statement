@@ -1,5 +1,11 @@
+import SigninInput from "../components/signin/SigninInput";
+
 const SigninPage = () => {
-  return <div>SigninPage</div>;
+  return (
+    <div>
+      <SigninInput />
+    </div>
+  );
 };
 
 export default SigninPage;

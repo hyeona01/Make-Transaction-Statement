@@ -1,20 +1,21 @@
 import { axiosWithoutAuth } from "./index";
-import type { SigninRequest, SignupRequest } from "../types/auth";
+import type {
+  SigninRequest,
+  SigninResponse,
+  SignupRequest,
+  SignupResponse,
+} from "../types/auth";
 
-export const signup = async (data: SignupRequest, image?: File) => {
-  const signupData = new FormData();
+export const signup = async (data: SignupRequest): Promise<SignupResponse> => {
+  // const signupData = new FormData();
 
-  signupData.append("userSignupRequestDto", JSON.stringify(data));
+  // signupData.append("userSignupRequestDto", JSON.stringify(data));
 
-  if (image) {
-    signupData.append("image", image);
-  }
-
-  const response = await axiosWithoutAuth().post("/auth/signup", signupData);
+  const response = await axiosWithoutAuth().post("/auth/signup", data);
   return response.data;
 };
 
-export const signin = async (data: SigninRequest) => {
-  const response = await axiosWithoutAuth().post("/auth/login", data);
+export const signin = async (data: SigninRequest): Promise<SigninResponse> => {
+  const response = await axiosWithoutAuth().post("/auth/signin", data);
   return response.data;
 };
