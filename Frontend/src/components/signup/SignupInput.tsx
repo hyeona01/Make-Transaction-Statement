@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const SignupInput = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUserame] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [businessStatus, setBusinessStatus] = useState("");
   const [businessCategory, setBusinessCategory] = useState("");
@@ -18,7 +18,7 @@ const SignupInput = () => {
     if (
       !email ||
       !password ||
-      !name ||
+      !username ||
       !companyName ||
       !businessStatus ||
       !businessCategory ||
@@ -36,7 +36,7 @@ const SignupInput = () => {
 
     try {
       const response = await signup({
-        name,
+        username,
         password,
         companyName,
         businessStatus,
@@ -56,10 +56,11 @@ const SignupInput = () => {
   return (
     <div className="flex flex-col space-y-10">
       <div className="flex flex-col space-y-4">
-        <h2>사용하실 이메일과 비밀번호를 입력해주세요!</h2>
+        <h1>Sign up</h1>
+        <h4>사용하실 이메일과 비밀번호를 입력해주세요!</h4>
         {/* 이메일 */}
         <div className="flex items-center">
-          <p>이메일을 입력해주세요.</p>
+          <p className="w-[14vw]">이메일</p>
           <input
             className="border px-2 py-1 rounded"
             type="email"
@@ -70,7 +71,7 @@ const SignupInput = () => {
 
         {/* 비밀번호 */}
         <div className="flex items-center">
-          <p>비밀번호를 입력해주세요.</p>
+          <p className="w-[14vw]">비밀번호</p>
           <input
             className="border px-2 py-1 rounded"
             type="password"
@@ -81,21 +82,21 @@ const SignupInput = () => {
       </div>
 
       <div className="flex flex-col space-y-4">
-        <h2>회사의 정보를 입력해주세요!</h2>
+        <h4>회사의 정보를 입력해주세요!</h4>
         {/* 이름 */}
         <div className="flex items-center">
-          <p>이름을 입력해주세요.</p>
+          <p className="w-[14vw]">이름</p>
           <input
             className="border px-2 py-1 rounded"
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={username}
+            onChange={(e) => setUserame(e.target.value)}
           />
         </div>
 
         {/* 회사 이름 */}
         <div className="flex items-center">
-          <p>회사명을 입력해주세요.</p>
+          <p className="w-[14vw]">회사명</p>
           <input
             className="border px-2 py-1 rounded"
             type="text"
@@ -107,7 +108,7 @@ const SignupInput = () => {
         {/* 업태 */}
         <div>
           <div className="flex items-center">
-            <p>업태</p>
+            <p className="w-[14vw]">업태</p>
             <input
               className="border px-2 py-1 rounded"
               type="text"
@@ -117,7 +118,7 @@ const SignupInput = () => {
           </div>
           {/* 종목 */}
           <div className="flex items-center">
-            <p>종목</p>
+            <p className="w-[14vw]">종목</p>
             <input
               className="border px-2 py-1 rounded"
               type="text"
@@ -129,7 +130,7 @@ const SignupInput = () => {
 
         {/* 사업자등록번호 */}
         <div className="flex items-center">
-          <p>사업자번호를 입력해주세요.</p>
+          <p className="w-[14vw]">사업자번호</p>
           <input
             className="border px-2 py-1 rounded"
             type="text"
@@ -140,7 +141,7 @@ const SignupInput = () => {
 
         {/* 주소 */}
         <div className="flex items-center">
-          <p>주소를 입력해주세요.</p>
+          <p className="w-[14vw]">주소</p>
           <input
             className="border px-2 py-1 rounded"
             type="text"
@@ -149,7 +150,9 @@ const SignupInput = () => {
           />
         </div>
       </div>
-      <button onClick={handleButtonClick}>회원가입</button>
+      <button className="mt-[2rem] h-[3rem]" onClick={handleButtonClick}>
+        회원가입
+      </button>
     </div>
   );
 };

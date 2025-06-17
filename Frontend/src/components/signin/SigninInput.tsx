@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signin } from "../../apis/auth";
 import { useNavigate } from "react-router-dom";
+import { setUsername } from "../../context/user";
 
 const SigninInput = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +25,10 @@ const SigninInput = () => {
         email,
         password,
       });
-      console.log("로그인 성공:", response);
+      console.log("로그인 성공", response);
+      console.log(response.username);
+
+      setUsername(response.username);
       navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);
@@ -33,12 +37,12 @@ const SigninInput = () => {
 
   return (
     <div className="flex flex-col space-y-4">
-      <h2>어서오세요!</h2>
+      <h1>Sign In</h1>
       {/* 이메일 */}
       <div className="flex items-center">
-        <p>이메일을 입력해주세요.</p>
+        <p className="w-[14vw]">이메일</p>
         <input
-          className="border px-2 py-1 rounded"
+          className="border px-2 py-1"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -47,15 +51,17 @@ const SigninInput = () => {
 
       {/* 비밀번호 */}
       <div className="flex items-center">
-        <p>비밀번호를 입력해주세요.</p>
+        <p className="w-[14vw]">비밀번호</p>
         <input
-          className="border px-2 py-1 rounded"
+          className="border px-2 py-1"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button onClick={handleButtonClick}>로그인</button>
+      <button className="mt-[2rem] h-[3rem]" onClick={handleButtonClick}>
+        로그인
+      </button>
     </div>
   );
 };

@@ -44,7 +44,9 @@ function setResponseInterceptor(instance: AxiosInstance): void {
 // 인증용 인스턴스 반환
 export const axiosWithAuth = (): AxiosInstance => {
   if (!authInstance) {
-    authInstance = axios.create({ baseURL: BASE_URL });
+    authInstance = axios.create({
+      baseURL: BASE_URL,
+    });
     setRequestInterceptor(authInstance);
     setResponseInterceptor(authInstance);
   }
@@ -54,7 +56,9 @@ export const axiosWithAuth = (): AxiosInstance => {
 // 인증 없는 인스턴스 반환
 export const axiosWithoutAuth = (): AxiosInstance => {
   if (!noAuthInstance) {
-    noAuthInstance = axios.create({ baseURL: BASE_URL });
+    noAuthInstance = axios.create({
+      baseURL: BASE_URL,
+    });
   }
   return noAuthInstance;
 };

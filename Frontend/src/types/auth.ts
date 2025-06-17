@@ -1,5 +1,5 @@
 export type SignupRequest = {
-  name: string;
+  username: string;
   password: string;
   companyName: string;
   businessStatus: string;
@@ -10,7 +10,7 @@ export type SignupRequest = {
 };
 
 export type SignupResponse = {
-  name: string;
+  username: string;
   companyName: string;
   businessStatus: string;
   businessCategory: string;
@@ -25,6 +25,6 @@ export type SigninRequest = {
 };
 
 export type SigninResponse = {
-  name: string;
+  username: string;
   email: string;
 };
