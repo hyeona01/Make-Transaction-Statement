@@ -23,3 +23,8 @@ export type SigninRequest = {
   email: string;
   password: string;
 };
+
+export type SigninResponse = {
+  name: string;
+  email: string;
+};

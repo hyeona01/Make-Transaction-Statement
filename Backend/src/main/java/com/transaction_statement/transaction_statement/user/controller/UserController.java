@@ -1,34 +1,28 @@
 package com.transaction_statement.transaction_statement.user.controller;
 
-import com.transaction_statement.transaction_statement.user.dto.UserRequestDto;
-import com.transaction_statement.transaction_statement.user.dto.UserResponseDto;
-import com.transaction_statement.transaction_statement.user.repository.UserRepository;
-import com.transaction_statement.transaction_statement.user.domain.User;
+import com.transaction_statement.transaction_statement.user.dto.SigninRequestDto;
+import com.transaction_statement.transaction_statement.user.dto.SigninResponseDto;
+import com.transaction_statement.transaction_statement.user.dto.SignupRequestDto;
+import com.transaction_statement.transaction_statement.user.dto.SignupResponseDto;
+import com.transaction_statement.transaction_statement.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/auth")
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping
-    public UserResponseDto createUser(@RequestBody UserRequestDto dto){
-        User user = User.from(dto);
-        User saved = userRepository.save(user);
-        return UserResponseDto.from(saved);
+    @PostMapping("/signup")
+    public SignupResponseDto createUser(@RequestBody SignupRequestDto dto){
+        return userService.registerUser(dto);
     }
 
-    @GetMapping("/{id}")
-    public UserResponseDto getUser(@PathVariable Long id){
-        User user = userRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("해당 사용자를 찾을 수 없습니다."));
-
-        return UserResponseDto.from(user);
+    @PostMapping("/signin")
+    public SigninResponseDto getUser(@RequestBody SigninRequestDto dto){
+        return userService.getUser(dto);
     }
 }
