@@ -1,7 +1,9 @@
 package com.transaction_statement.transaction_statement.config;
 
 import com.transaction_statement.transaction_statement.jwt.JWTUtil;
+import com.transaction_statement.transaction_statement.jwt.JwtAuthFilter;
 import com.transaction_statement.transaction_statement.jwt.SigninFilter;
+import com.transaction_statement.transaction_statement.user.service.CustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,10 +24,12 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private  final JWTUtil jwtUtil;
+    private final CustomUserDetailService customUserDetailService;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration,JWTUtil jwtUtil) {
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomUserDetailService customUserDetailService) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
+        this.customUserDetailService = customUserDetailService;
     }
 
     @Bean
@@ -61,14 +65,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth)-> auth
                         .requestMatchers("/", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
-                        .requestMatchers("/specsheet/**").hasAnyRole("ADMIN","USER")
+                        .requestMatchers("/specsheet/**", "/board/**").hasAnyRole("ADMIN","USER")
                         .anyRequest().authenticated()
                 );
 
         SigninFilter signinFilter = new SigninFilter(authenticationManager(authenticationConfiguration), jwtUtil);
         signinFilter.setFilterProcessesUrl("/auth/signin");
+
+        // JWT 인증 필터
+        JwtAuthFilter jwtAuthFilter = new JwtAuthFilter(jwtUtil, customUserDetailService);
+
         http
-                .addFilterAt(signinFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(signinFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         http
                 .sessionManagement((session)-> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));

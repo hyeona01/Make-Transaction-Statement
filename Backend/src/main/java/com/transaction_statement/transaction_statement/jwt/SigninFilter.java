@@ -61,7 +61,7 @@ public class SigninFilter extends UsernamePasswordAuthenticationFilter {
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_USER");
 
-        String token = jwtUtil.createJwt(email, role, 60 * 60 * 10L);
+        String token = jwtUtil.createJwt(email, role, 60 * 60 * 100L);
 
         // 헤더에 추가
         response.setHeader("Authorization", "Bearer " + token);
@@ -74,7 +74,7 @@ public class SigninFilter extends UsernamePasswordAuthenticationFilter {
         response.setCharacterEncoding("UTF-8");
 
         // JSON 응답 생성
-        String json = String.format("{\"name\":\"%s\", \"email\":\"%s\"}", username, email);
+        String json = String.format("{\"username\":\"%s\", \"email\":\"%s\"}", username, email);
         response.getWriter().write(json);
         response.getWriter().flush();
     }
