@@ -1,6 +1,5 @@
 package com.transaction_statement.transaction_statement.user.dto;
 
-
 import com.transaction_statement.transaction_statement.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +29,10 @@ public class CustomUserDetails implements UserDetails {
             });
 
             return collection;
+        }
+
+        public User getUser() {
+            return user;
         }
 
         @Override

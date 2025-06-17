@@ -3,6 +3,7 @@ package com.transaction_statement.transaction_statement.jwt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transaction_statement.transaction_statement.user.dto.CustomUserDetails;
 import com.transaction_statement.transaction_statement.user.dto.SigninRequestDto;
+import com.transaction_statement.transaction_statement.user.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,28 +46,42 @@ public class SigninFilter extends UsernamePasswordAuthenticationFilter {
         }
     }
 
-    // 로그인 성공시
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authResult) throws IOException {
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
 
-        String username = customUserDetails.getUsername();
+        User user = customUserDetails.getUser();
 
+        String username = user.getUsername();
+        String email = customUserDetails.getUsername();
         String role = authResult.getAuthorities().stream()
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
-                .orElseThrow(() -> new RuntimeException("권한이 없습니다."));
+                .orElse("ROLE_USER");
 
-        String token = jwtUtil.createJwt(username, role, 60*60*10L);
+        String token = jwtUtil.createJwt(email, role, 60 * 60 * 10L);
 
-        response.addHeader("Authorization", "Bearer " + token);
+        // 헤더에 추가
+        response.setHeader("Authorization", "Bearer " + token);
+
+        // CORS를 위한 헤더 노출
+        response.setHeader("Access-Control-Expose-Headers", "Authorization");
+
+        // Content-Type 설정
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // JSON 응답 생성
+        String json = String.format("{\"name\":\"%s\", \"email\":\"%s\"}", username, email);
+        response.getWriter().write(json);
+        response.getWriter().flush();
     }
 
     // 로그인 실패시
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-
         response.setStatus(401);
     }
 }
