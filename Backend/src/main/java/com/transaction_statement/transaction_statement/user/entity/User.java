@@ -1,4 +1,4 @@
-package com.transaction_statement.transaction_statement.user.domain;
+package com.transaction_statement.transaction_statement.user.entity;
 
 import com.transaction_statement.transaction_statement.user.dto.SignupRequestDto;
 import jakarta.persistence.*;

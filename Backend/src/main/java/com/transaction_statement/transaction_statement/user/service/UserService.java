@@ -1,6 +1,6 @@
 package com.transaction_statement.transaction_statement.user.service;
 
-import com.transaction_statement.transaction_statement.user.domain.User;
+import com.transaction_statement.transaction_statement.user.entity.User;
 import com.transaction_statement.transaction_statement.user.dto.SigninRequestDto;
 import com.transaction_statement.transaction_statement.user.dto.SigninResponseDto;
 import com.transaction_statement.transaction_statement.user.dto.SignupRequestDto;
@@ -48,7 +48,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         // 비밀번호 일치 여부 확인
-        if (!user.getPassword().equals(password)) {
+        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 

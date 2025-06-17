@@ -1,6 +1,6 @@
 package com.transaction_statement.transaction_statement.user.repository;
 
-import com.transaction_statement.transaction_statement.user.domain.User;
+import com.transaction_statement.transaction_statement.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
