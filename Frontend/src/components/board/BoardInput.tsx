@@ -32,21 +32,20 @@ const BoardInput = () => {
 
   return (
     <div>
-      <h1>게시글 작성</h1>
       <div className="mt-[3rem] mb-[2rem]">
-        <label>제목</label>
+        <div className="text-[1.5rem] mb-[10px]">제목</div>
         <input
           type="text"
-          className="w-full"
+          className="w-full p-[10px]"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="제목을 입력하세요"
         />
       </div>
       <div className="mb-[2rem]">
-        <label>내용</label>
+        <div className="text-[1.5rem] mb-[10px]">내용</div>
         <textarea
-          className="w-full h-[50vh]"
+          className="w-full h-[50vh] p-[10px]"
           value={contents}
           onChange={(e) => setContents(e.target.value)}
           placeholder="내용을 입력하세요"

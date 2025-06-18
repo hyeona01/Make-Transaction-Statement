@@ -1,5 +1,6 @@
 package com.transaction_statement.transaction_statement.user.entity;
 
+import com.transaction_statement.transaction_statement.board.entity.Board;
 import com.transaction_statement.transaction_statement.user.dto.SignupRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -7,6 +8,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name="user")
 @Getter @Setter
@@ -53,6 +57,9 @@ public class User {
 
     @Column(nullable = false)
     private String role;
+
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+    private List<Board> boards = new ArrayList<>();
 
 
     @Builder

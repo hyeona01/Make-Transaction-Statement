@@ -61,7 +61,7 @@ public class SigninFilter extends UsernamePasswordAuthenticationFilter {
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_USER");
 
-        String token = jwtUtil.createJwt(email, role, 60 * 60 * 100L);
+        String token = jwtUtil.createJwt(email, role, 60 * 60 * 1000L);
 
         // 헤더에 추가
         response.setHeader("Authorization", "Bearer " + token);

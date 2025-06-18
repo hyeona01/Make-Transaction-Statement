@@ -6,6 +6,7 @@ import { SignupPage } from "./pages/SignupPage";
 import SheetPage from "./pages/SheetPage";
 import BoardPage from "./pages/BoardPage";
 import PostBoardPage from "./pages/PostBoardPage";
+import BoardDetailPage from "./pages/BoardDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: "/sheet", element: <SheetPage /> },
       { path: "/board", element: <BoardPage /> },
       { path: "/board/post", element: <PostBoardPage /> },
+      { path: `/board/:id`, element: <BoardDetailPage /> },
     ],
   },
 ]);
