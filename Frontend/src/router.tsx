@@ -7,6 +7,7 @@ import SheetPage from "./pages/SheetPage";
 import BoardPage from "./pages/BoardPage";
 import PostBoardPage from "./pages/PostBoardPage";
 import BoardDetailPage from "./pages/BoardDetailPage";
+import ResigterClientPage from "./pages/ResigterClientPage";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,10 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/signin", element: <SigninPage /> },
       { path: "/signup", element: <SignupPage /> },
+
       { path: "/sheet", element: <SheetPage /> },
+      { path: "/register-client", element: <ResigterClientPage /> },
+
       { path: "/board", element: <BoardPage /> },
       { path: "/board/post", element: <PostBoardPage /> },
       { path: `/board/:id`, element: <BoardDetailPage /> },
